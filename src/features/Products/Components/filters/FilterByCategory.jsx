@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
         cursor: 'pointer',
         margin: theme.spacing(0),
         fontSize: '16px',
+      
     },
 }));
 
@@ -46,7 +47,7 @@ function FilterByCategory({ onChange }) {
     };
     return (
         <Box className={classes.root}>
-            <Typography>Danh Mục Sản Phẩm</Typography>
+            <Typography variant="subtitle2">Danh Mục Sản Phẩm</Typography>
             <ul className={classes.list}>
                 {categories.map((category) => (
                     <li onClick={() => handleCateforyClick(category)} className={classes.item} key={category.id}>

@@ -1,18 +1,19 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+// import React, { useState } from 'react';
+// import PropTypes from 'prop-types';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { increment } from '../../features/cart/cartSlice';
 
-ChangeNumber.propTypes = {
-    
-};
+// ChangeNumber.propTypes = {};
 
-function ChangeNumber(props) {
-    const [number,setnumber]=useState(0);
-    return (
-        <div>
-            {number}
-            <button onClick={()=> setnumber(x=> x+1)}>Click me</button>
-        </div>
-    );
-}
+// function ChangeNumber() {
+//     // const count = useSelector((state) => state.);
+//     const dispatch = useDispatch();
+//     return (
+//         <div>
+//             {count}
+//             <button onClick={() => dispatch(increment())}>Click me</button>
+//         </div>
+//     );
+// }
 
-export default ChangeNumber;
+// export default ChangeNumber;

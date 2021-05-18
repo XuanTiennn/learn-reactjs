@@ -1,32 +1,99 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { Badge, Button, Card, InputBase, MenuItem } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
+import IconButton from '@material-ui/core/IconButton';
+import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import { NavLink, Link } from 'react-router-dom';
+import SearchIcon from '@material-ui/icons/Search';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
 import Register from '../../auth/registerForm/register';
-
+import { hideCartItem } from '../../features/cart/cartSlice';
+import { countQuantity, valueCart } from '../../features/cart/createSelector';
+import ShowCart from '../../features/Products/Components/ShowCart';
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
+        height: '50px',
     },
     menuButton: {
         marginRight: theme.spacing(2),
     },
     title: {
         flexGrow: 1,
+        [theme.breakpoints.down('sm')]: {
+            fontSize: theme.spacing(1),
+        },
+        [theme.breakpoints.up('md')]: {
+            fontSize: theme.spacing(2),
+        },
     },
     link: {
         color: 'white',
-        margin:theme.spacing(0,2),
-        
+        margin: theme.spacing(0, 2),
+        '&:hover': {
+            color: theme.palette.orange,
+        },
+    },
+    search: {
+        position: 'relative',
+        borderRadius: theme.shape.borderRadius,
+        backgroundColor: theme.palette.common.white,
+        '&:hover': {
+            backgroundColor: theme.palette.common.white,
+        },
+        marginRight: theme.spacing(2),
+        marginLeft: 0,
+        width: '100%',
+        [theme.breakpoints.up('sm')]: {
+            marginLeft: theme.spacing(3),
+            width: 'auto',
+        },
+    },
+    searchIcon: {
+        padding: theme.spacing(0, 2),
+        height: '100%',
+        position: 'absolute',
+        pointerEvents: 'none',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    inputRoot: {
+        color: 'inherit',
+    },
+    inputInput: {
+        // vertical padding + font size from searchIcon
+        paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+        transition: theme.transitions.create('width'),
+        width: '300px',
+    },
+    buttonSearch: {
+        whiteSpace: 'nowrap',
+        [theme.breakpoints.down('sm')]: {
+            fontSize: theme.spacing(1),
+        },
+        [theme.breakpoints.up('md')]: {
+            fontSize: theme.spacing(2),
+        },
+        [theme.breakpoints.up('lg')]: {
+            fontSize: theme.spacing(2),
+        },
     },
 }));
 export default function Header() {
     const classes = useStyles();
-  
+    const cartItemCount = useSelector(countQuantity);
+    const history = useHistory();
+    const dispatch = useDispatch();
+    const toCart = () => {
+        history.push('/cart');
+        dispatch(hideCartItem(false));
+    };
+    const value = useSelector(valueCart);
+    //console.log(value);
     return (
         <div className={classes.root}>
             <AppBar position="static">
@@ -38,16 +105,38 @@ export default function Header() {
                         aria-label="menu"
                     ></IconButton>
                     <Typography variant="h6" className={classes.title}>
-                        XuanTien
+                        Shop Cart
                     </Typography>
-                    <Link className={classes.link} to="/login" color="inherit">
-                        Login
+                    <div className={classes.search}>
+                        <div className={classes.searchIcon}>
+                            <SearchIcon />
+                        </div>
+                        <InputBase
+                            placeholder="Tìm sản phẩm, danh mục hay thương hiệu mong muốn ..."
+                            className={(classes.inputRoot, classes.inputInput)}
+                            inputProps={{ 'aria-label': 'search' }}
+                        />
+                    </div>
+                    <Button
+                        className={classes.buttonSearch}
+                        variant="contained"
+                        color="primary"
+                        endIcon={<SearchIcon />}
+                    >
+                        Tìm kiếm
+                    </Button>
+                    <Link className={classes.link} to="/register" color="inherit" component={Register}></Link>
+                    <Link to="/products" className={classes.link}>
+                        Products
                     </Link>
-                    <Link className={classes.link} to="/login" color="inherit">
-                        Menu
-                    </Link>
-                    <Link className={classes.link} to="/login" color="inherit" component={Register}>
-                    </Link>
+                    <MenuItem>
+                        <IconButton onClick={toCart} aria-label="show 4 new mails" color="inherit">
+                            <Badge badgeContent={cartItemCount} color="secondary">
+                                <ShoppingCartIcon />
+                            </Badge>
+                            <Card>{value ? <ShowCart /> : ''}</Card>
+                        </IconButton>
+                    </MenuItem>
                 </Toolbar>
             </AppBar>
         </div>

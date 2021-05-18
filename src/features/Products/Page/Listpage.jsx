@@ -1,13 +1,13 @@
-import { Box, Container, Grid, makeStyles, Pagination, Paper, Typography } from '@material-ui/core';
-import React from 'react';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { Box, Container, Grid, makeStyles, Pagination, Paper } from '@material-ui/core';
+import queryString from 'query-string';
+import React, { useEffect, useState } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import productApi from '../../../api/productsApi';
 import Filters from '../Components/Filters';
+import FilterChip from '../Components/filters/FilterChip';
 import ProductList from '../Components/ProductList';
 import ProductListskeletion from '../Components/ProductListskeletion';
 import ProductSort from '../Components/ProductSort';
-
 const useStyles = makeStyles((theme) => ({
     root: { backgroundColor: 'rgb(244, 244, 244)' },
     left: {
@@ -27,16 +27,22 @@ function Listpage() {
     const classes = useStyles();
     const [productList, setProductList] = useState([]);
     const [loading, setloading] = useState(true);
+
+    const history = useHistory();
+    const location = useLocation();
+    const queryParams = queryString.parse(location.search);
+
     const [pagination, setpagination] = useState({
         page: 1,
         limit: 9,
         total: 10,
     });
-    const [filters, setfilters] = useState({
-        _page: 1,
-        _limit: 9,
-        _sort: 'salePrice:ASC',
-    });
+    const [filters, setfilters] = useState(() => ({
+        ...queryParams,
+        _page: Number.parseInt(queryParams._page) || 1,
+        _limit: Number.parseInt(queryParams._limit) || 9,
+        _sort: queryParams._sort || 'salePrice:ASC',
+    }));
 
     useEffect(() => {
         (async () => {
@@ -51,6 +57,14 @@ function Listpage() {
             setloading(false);
         })();
     }, [filters]);
+    useEffect(
+        () =>
+            history.push({
+                pathname: history.location.pathname,
+                search: queryString.stringify(filters),
+            }),
+        [filters, history]
+    );
     const handleChange = (e, page) => {
         setfilters((prevfilter) => ({
             ...prevfilter,
@@ -69,8 +83,12 @@ function Listpage() {
             ...newFilters,
         }));
     };
+    const setNewFilter = (newFilter) => {
+        setfilters(newFilter);
+    };
     return (
         <Box className={classes.root}>
+           
             <Container>
                 <Grid container spacing={1}>
                     <Grid className={classes.left} item>
@@ -81,6 +99,7 @@ function Listpage() {
                     <Grid className={classes.right} item>
                         <Paper elevation={0}>
                             <ProductSort value={filters._sort} onChange={handleSortChange} />
+                            <FilterChip propsfilter={filters} onChange={setNewFilter} />
                             {loading ? <ProductListskeletion length={9} /> : <ProductList data={productList.data} />}
                             <Box className={classes.pagination}>
                                 <Pagination

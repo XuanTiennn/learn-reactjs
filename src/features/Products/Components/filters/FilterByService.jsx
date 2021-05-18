@@ -1,41 +1,52 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box, Checkbox, Typography } from '@material-ui/core';
+import { Box, Checkbox, FormControlLabel, makeStyles, Typography } from '@material-ui/core';
 
 FilterService.propTypes = {
     Filters: PropTypes.object,
     onChange: PropTypes.func,
 };
-
+const useStyles = makeStyles((theme) => ({
+    root: {
+        margin: 0,
+        padding: 0,
+        '&>li': {
+            margin: 0,
+        },
+    },
+    list: {
+        listStyle: 'none',
+    },
+}));
 function FilterService({ Filters = {}, onChange }) {
-    const handleOnchange = () => {
+    const handleOnchange = (e) => {
         if (!onChange) return;
         const { name, checked } = e.target;
         onChange({ [name]: checked });
     };
+    const classes = useStyles();
     return (
         <Box>
-            <Typography>Lựa chọn</Typography>
-            <ul>
+            <Typography variant="subtitle2">Lựa chọn</Typography>
+            <ul className={classes.root}>
                 {[
                     { value: 'isPromotion', label: 'Giảm giá' },
-                    { value: 'isFreeship', label: 'Miễn phí vận chuyển' },
-                ].map((service) => {
-                    <li>
-                        <Checkbox
-                            name={service.value}
+                    { value: 'isFreeShip', label: 'Miễn phí vận chuyển' },
+                ].map((service) => (
+                    <li className={classes.list} key={service.value}>
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    name={service.value}
+                                    label={service.label}
+                                    onChange={handleOnchange}
+                                    checked={Filters[service.value]}
+                                />
+                            }
                             label={service.label}
-                            onChange={handleOnchange}
-                            checked={Filters[service.value]}
                         />
-                        <Checkbox
-                            name={service.value}
-                            label={service.label}
-                            onChange={handleOnchange}
-                            checked={Filters[service.value]}
-                        />
-                    </li>;
-                })}
+                    </li>
+                ))}
             </ul>
         </Box>
     );

@@ -1,7 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import InputField from '../../components/inputField';
 import { useForm } from 'react-hook-form';
+import InputField from '../../components/inputField';
 
 Form.propTypes = {};
 

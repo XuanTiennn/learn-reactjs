@@ -1,11 +1,6 @@
 import axios from 'axios';
 
-const axiosClient = axios.create({
-    baseURL: 'https://api.ezfrontend.com',
-    headers: {
-        'content-Type': 'application/json',
-    },
-});
+
 const axiosClientHome = axios.create({
     baseURL: 'https://tiki.vn/api/v2',
     headers: {
@@ -39,4 +34,4 @@ axios.interceptors.response.use(
     }
 );
 
-export default axiosClient;
+export default axiosClientHome;
