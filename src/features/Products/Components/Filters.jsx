@@ -33,7 +33,6 @@ function Filters({ filters, onChange }) {
             <FilterByCategory onChange={handleChange} />
             <FilterByPrice onChange={handlePriceChange} />
             <FilterService onChange={handlePriceChange} Filters={filters} />
-         
         </Box>
     );
 }

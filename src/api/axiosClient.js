@@ -6,12 +6,7 @@ const axiosClient = axios.create({
         'content-Type': 'application/json',
     },
 });
-const axiosClientHome = axios.create({
-    baseURL: 'https://tiki.vn/api/v2',
-    headers: {
-        'content-Type': 'application/json',
-    },
-});
+
 
 // Add a request interceptor
 axios.interceptors.request.use(

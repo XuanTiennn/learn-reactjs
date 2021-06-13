@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import { addtoCart, showCartItem } from '../../cart/cartSlice';
 import Abc from '../Components/Abc';
+import DetailsSkeleton from '../Components/DetailsSkeleton';
 import Infor from '../Components/Infor';
 import InforDetailsPr from '../Components/InforDetailsPr';
 import Quantity from '../Components/Quantity';
@@ -41,7 +42,7 @@ function DetailPage() {
     } = useRouteMatch();
     const { loading, product } = useCustomHook(productId);
     if (loading) {
-        return <Box>Loading</Box>;
+        return <DetailsSkeleton/>;
     }
 
     return (

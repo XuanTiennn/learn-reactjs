@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import categoryApi from '../../../../api/categoryApi';
-import { Box, makeStyles, Typography } from '@material-ui/core';
+import { Box, makeStyles, Typography, Skeleton } from '@material-ui/core';
 
 FilterByCategory.propTypes = {
     onChange: PropTypes.func,
@@ -19,7 +19,6 @@ const useStyles = makeStyles((theme) => ({
         cursor: 'pointer',
         margin: theme.spacing(0),
         fontSize: '16px',
-      
     },
 }));
 
