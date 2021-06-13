@@ -16,7 +16,7 @@ function Banner(props) {
     };
     return (
         <div>
-            <h2> Single Item</h2>
+            {/* <h2> Single Item</h2>
             <Slider {...settings}>
                 <div>
                     <h3>1</h3>
@@ -36,7 +36,7 @@ function Banner(props) {
                 <div>
                     <h3>6</h3>
                 </div>
-            </Slider>
+            </Slider> */}
         </div>
     );
 }

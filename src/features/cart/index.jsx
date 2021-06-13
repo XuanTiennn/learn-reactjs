@@ -2,7 +2,7 @@ import { Box, Button, Container, Grid, makeStyles, Paper, Typography } from '@ma
 import { useDispatch, useSelector } from 'react-redux';
 import format from '../../utils/comman';
 import { DEFAULT_THUMBNAIL, STATIC_HOST } from '../Products/constants';
-import { removeCart, setQuantity } from './cartSlice';
+import { decrementQuantity, incrementQuantity, removeCart, setQuantity } from './cartSlice';
 import { array, totalPrice } from './createSelector';
 Cart.propTypes = {};
 
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     },
     originalPric: {
         textDecoration: 'line-through',
-        color:theme.palette.grey[600],
+        color: theme.palette.grey[600],
     },
     promotion: {
         marginLeft: theme.spacing(2),
@@ -81,7 +81,7 @@ function Cart(props) {
         console.log(action);
     };
     const handleRemoveItem = (product) => {
-         dispatch(removeCart(product.id));
+        dispatch(removeCart(product.id));
     };
 
     return (
@@ -99,6 +99,7 @@ function Cart(props) {
                                             padding="9px 0"
                                             component="li"
                                             key={product.id}
+                                            style={{ borderBottom: '1px solid #eee' }}
                                         >
                                             <img
                                                 className={classes.img}
@@ -111,10 +112,16 @@ function Cart(props) {
                                             />
                                             <Box>
                                                 <Typography variant="body2">{product.product.name}</Typography>
-                                                <Button style={{fontSize:'14px'}} onClick={() => handleRemoveItem(product)} size="small">
+                                                <Button
+                                                    style={{ fontSize: '14px', marginLeft: '-15px' }}
+                                                    onClick={() => handleRemoveItem(product)}
+                                                    size="small"
+                                                >
                                                     Xóa
                                                 </Button>
-                                                <Button style={{fontSize:'14px'}} size="small">Để dành mua sau</Button>
+                                                <Button style={{ fontSize: '14px' }} size="small">
+                                                    Để dành mua sau
+                                                </Button>
                                             </Box>
                                             <Box>
                                                 <Box>
@@ -138,15 +145,23 @@ function Cart(props) {
                                                 <Box>
                                                     <form>
                                                         <Box className={classes.flex}>
-                                                            <Typography className={classes.spanbutton} variant="span">
+                                                            <Typography
+                                                                className={classes.spanbutton}
+                                                                variant="span"
+                                                                onClick={() => dispatch(decrementQuantity(product.id))}
+                                                            >
                                                                 -
                                                             </Typography>
                                                             <input
                                                                 className={classes.input}
-                                                                value={product.quantity}
+                                                                value={product.quantity > 0 ? product.quantity : 0}
                                                                 onChange={handleInputChange}
                                                             />
-                                                            <Typography className={classes.spanbutton} variant="span">
+                                                            <Typography
+                                                                className={classes.spanbutton}
+                                                                variant="span"
+                                                                onClick={() => dispatch(incrementQuantity(product.id))}
+                                                            >
                                                                 +
                                                             </Typography>
                                                         </Box>
@@ -166,12 +181,12 @@ function Cart(props) {
                             <Box>
                                 <Box className={classes.flexbetween}>
                                     <Typography variant="body2">Tạm tính :</Typography>
-                                    <Typography variant="body2">{format(totlaPrice)}</Typography>
+                                    <Typography variant="body2">{totlaPrice > 0 ? format(totlaPrice) : 0}</Typography>
                                 </Box>
                                 <Box className={classes.flexbetween}>
                                     <Typography variant="body2">Thành Tiền :</Typography>
                                     <Typography className={classes.totalPricee} variant="body2">
-                                        {format(totlaPrice)}
+                                        {totlaPrice > 0 ? format(totlaPrice) : 0}
                                     </Typography>
                                 </Box>
                                 <Typography textAlign="right" variant="caption" gutterBottom>

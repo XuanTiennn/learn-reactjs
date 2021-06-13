@@ -64,15 +64,6 @@ const FILTER_LIST = [
         },
         onToggle: () => {},
     },
-    // {
-    //     id: 4,
-    //     getLable: (propsfilter) => ' ',
-    //     isActive: () => true,
-    //     isVisible: () => true,
-    //     isRemovable: true,
-    //     onRemove: () => {},
-    //     onToggle: () => {},
-    // },
 ];
 function FilterChip({ propsfilter = {}, onChange = null }) {
     const classes = useStyles();

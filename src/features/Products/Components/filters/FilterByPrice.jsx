@@ -1,5 +1,5 @@
+import { Box, Button, makeStyles, Typography } from '@material-ui/core';
 import React, { useState } from 'react';
-import { Box, Button, makeStyles, TextField, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     root: { },
@@ -7,9 +7,6 @@ const useStyles = makeStyles((theme) => ({
         display:'flex',
         flexFlow:'row nowrap',
         alignItems:'center',
-    },
-    button: {
-        marginTop: '40px',
     },
 }));
 function FilterByPrice({ onChange }) {
@@ -31,13 +28,13 @@ function FilterByPrice({ onChange }) {
     return (
         <Box className={classes.root}>
             <Typography variant="subtitle2">Giá</Typography>
-            <Box className={classes.range}>
-                <TextField   name="salePrice_gte" value={values.salePrice_gte} onChange={handleChange} />
-                <span>-</span>
-                <TextField  name="salePrice_lte" value={values.salePrice_lte} onChange={handleChange} />
-            </Box>
+            <div className={classes.range}>
+                <input style={{maxHeight:'35px',padding:'10px',maxWidth:'100px',borderRadius:'5px',border:'1px solid ',outline:'none'}}  name="salePrice_gte" value={values.salePrice_gte} onChange={handleChange} />
+                <span> - </span>
+                <input style={{maxHeight:'35px',padding:'10px',maxWidth:'100px',borderRadius:'5px',border:'1px solid ',outline:'none'}} name="salePrice_lte" value={values.salePrice_lte} onChange={handleChange} />
+            </div>
 
-            <Button marginTop="20px" className={classes.button} variant="outlined" color="primary" onClick={handleSubmit}>
+            <Button style={{marginTop:'15px',fontSize:'14px'}} variant="outlined" color="primary" onClick={handleSubmit}>
                 Áp dụng
             </Button>
         </Box>

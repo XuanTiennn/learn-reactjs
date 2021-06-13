@@ -50,7 +50,7 @@ function Listpage() {
                 const { data, pagination } = await productApi.getAll(filters);
                 setProductList(data);
                 setpagination(pagination);
-                console.log({ data, pagination });
+                //console.log({ data, pagination });
             } catch (error) {
                 console.log('Fail error', error);
             }
@@ -86,9 +86,13 @@ function Listpage() {
     const setNewFilter = (newFilter) => {
         setfilters(newFilter);
     };
+    if(loading){
+        return <ProductListskeletion/>
+    }
     return (
+        
         <Box className={classes.root}>
-           
+        
             <Container>
                 <Grid container spacing={1}>
                     <Grid className={classes.left} item>
@@ -100,7 +104,7 @@ function Listpage() {
                         <Paper elevation={0}>
                             <ProductSort value={filters._sort} onChange={handleSortChange} />
                             <FilterChip propsfilter={filters} onChange={setNewFilter} />
-                            {loading ? <ProductListskeletion length={9} /> : <ProductList data={productList.data} />}
+                            {loading ? <ProductListskeletion  /> : <ProductList data={productList.data} />}
                             <Box className={classes.pagination}>
                                 <Pagination
                                     onChange={handleChange}

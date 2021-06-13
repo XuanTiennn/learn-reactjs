@@ -13,6 +13,7 @@ import Register from '../../auth/registerForm/register';
 import { hideCartItem } from '../../features/cart/cartSlice';
 import { countQuantity, valueCart } from '../../features/cart/createSelector';
 import ShowCart from '../../features/Products/Components/ShowCart';
+import SearchComponent from './searchComponent';
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -108,30 +109,16 @@ export default function Header() {
                         Shop Cart
                     </Typography>
                     <div className={classes.search}>
-                        <div className={classes.searchIcon}>
-                            <SearchIcon />
-                        </div>
-                        <InputBase
-                            placeholder="Tìm sản phẩm, danh mục hay thương hiệu mong muốn ..."
-                            className={(classes.inputRoot, classes.inputInput)}
-                            inputProps={{ 'aria-label': 'search' }}
-                        />
+                        <SearchComponent />
                     </div>
-                    <Button
-                        className={classes.buttonSearch}
-                        variant="contained"
-                        color="primary"
-                        endIcon={<SearchIcon />}
-                    >
-                        Tìm kiếm
-                    </Button>
+                  
                     <Link className={classes.link} to="/register" color="inherit" component={Register}></Link>
                     <Link to="/products" className={classes.link}>
                         Products
                     </Link>
                     <MenuItem>
                         <IconButton onClick={toCart} aria-label="show 4 new mails" color="inherit">
-                            <Badge badgeContent={cartItemCount} color="secondary">
+                            <Badge badgeContent={cartItemCount > 0 ? cartItemCount : 0} color="secondary">
                                 <ShoppingCartIcon />
                             </Badge>
                             <Card>{value ? <ShowCart /> : ''}</Card>

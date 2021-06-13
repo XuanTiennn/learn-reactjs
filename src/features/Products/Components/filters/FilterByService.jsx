@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
     },
     list: {
         listStyle: 'none',
+        fontSize: '14px',
     },
 }));
 function FilterService({ Filters = {}, onChange }) {
