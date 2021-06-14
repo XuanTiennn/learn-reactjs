@@ -35,7 +35,7 @@ function FilterByCategory({ onChange }) {
                         name: x.name,
                     }))
                 );
-                console.log(categories);
+                //console.log(categories);
             } catch (error) {
                 console.log(error);
             }

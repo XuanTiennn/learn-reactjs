@@ -12,7 +12,9 @@ import PassWordFiled from './passwordField';
 RegisterForm.propTypes = {};
 const useStyles = makeStyles((theme) => ({
     root: {
-        flexGrow: 1,
+        [theme.breakpoints.down('sm')]:{
+            display:'none',
+        }
     },
     menuButton: {
         marginRight: theme.spacing(2),
@@ -43,7 +45,7 @@ function RegisterForm() {
     };
     const classes = useStyles();
     return (
-        <div>
+        <div className={classes.root}>
             <Link className={classes.link} variant="outlined" color="primary" onClick={handleClickOpen}>
                 Register
             </Link>

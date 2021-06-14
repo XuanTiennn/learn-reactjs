@@ -95,12 +95,12 @@ function Listpage() {
         
             <Container>
                 <Grid container spacing={1}>
-                    <Grid className={classes.left} item>
+                    <Grid className={classes.left} item xs={12} lg={3}>
                         <Paper elevation={1}>
                             <Filters filters={filters} onChange={handleFilterChange} />
                         </Paper>
                     </Grid>
-                    <Grid className={classes.right} item>
+                    <Grid className={classes.right} item item xs={12} lg={9}>
                         <Paper elevation={0}>
                             <ProductSort value={filters._sort} onChange={handleSortChange} />
                             <FilterChip propsfilter={filters} onChange={setNewFilter} />

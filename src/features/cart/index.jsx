@@ -68,6 +68,15 @@ const useStyles = makeStyles((theme) => ({
             borderTop: '1px solid rgb(200, 200, 200)',
         },
     },
+    leftcol: {},
+    rightcol: {
+        [theme.breakpoints.down('md')]: {
+            marginTop: '15px',
+        },
+        [theme.breakpoints.up('sm')]: {
+            marginLeft: '10px',
+        },
+    },
 }));
 function Cart(props) {
     const classes = useStyles();
@@ -88,7 +97,7 @@ function Cart(props) {
         <Box className={classes.root}>
             <Container>
                 <Grid container>
-                    <Grid item width="70%">
+                    <Grid item xs={12} lg={8} className={classes.leftcol}>
                         <Paper className={classes.padding}>
                             <Box component="ul">
                                 {products ? (
@@ -176,7 +185,7 @@ function Cart(props) {
                             </Box>
                         </Paper>
                     </Grid>
-                    <Grid item marginLeft="10px">
+                    <Grid item xs={12} lg={4} className={classes.rightcol}>
                         <Paper className={classes.padding}>
                             <Box>
                                 <Box className={classes.flexbetween}>

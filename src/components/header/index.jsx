@@ -1,10 +1,9 @@
-import { Badge, Button, Card, InputBase, MenuItem } from '@material-ui/core';
+import { Badge, Card, MenuItem } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
 import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import SearchIcon from '@material-ui/icons/Search';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -25,62 +24,22 @@ const useStyles = makeStyles((theme) => ({
     title: {
         flexGrow: 1,
         [theme.breakpoints.down('sm')]: {
-            fontSize: theme.spacing(1),
-        },
-        [theme.breakpoints.up('md')]: {
-            fontSize: theme.spacing(2),
+            fontSize: '14px',
+            wordSpacing: 'no-wrap',
         },
     },
     link: {
         color: 'white',
         margin: theme.spacing(0, 2),
         '&:hover': {
-            color: theme.palette.orange,
+            color: 'whitesmoke',
+            textDecoration:'none',
+            transition:'.3s',
         },
     },
     search: {
-        position: 'relative',
-        borderRadius: theme.shape.borderRadius,
-        backgroundColor: theme.palette.common.white,
-        '&:hover': {
-            backgroundColor: theme.palette.common.white,
-        },
-        marginRight: theme.spacing(2),
-        marginLeft: 0,
-        width: '100%',
-        [theme.breakpoints.up('sm')]: {
-            marginLeft: theme.spacing(3),
-            width: 'auto',
-        },
-    },
-    searchIcon: {
-        padding: theme.spacing(0, 2),
-        height: '100%',
-        position: 'absolute',
-        pointerEvents: 'none',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    inputRoot: {
-        color: 'inherit',
-    },
-    inputInput: {
-        // vertical padding + font size from searchIcon
-        paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-        transition: theme.transitions.create('width'),
-        width: '300px',
-    },
-    buttonSearch: {
-        whiteSpace: 'nowrap',
         [theme.breakpoints.down('sm')]: {
-            fontSize: theme.spacing(1),
-        },
-        [theme.breakpoints.up('md')]: {
-            fontSize: theme.spacing(2),
-        },
-        [theme.breakpoints.up('lg')]: {
-            fontSize: theme.spacing(2),
+            display:'none'
         },
     },
 }));
@@ -111,7 +70,7 @@ export default function Header() {
                     <div className={classes.search}>
                         <SearchComponent />
                     </div>
-                  
+
                     <Link className={classes.link} to="/register" color="inherit" component={Register}></Link>
                     <Link to="/products" className={classes.link}>
                         Products
